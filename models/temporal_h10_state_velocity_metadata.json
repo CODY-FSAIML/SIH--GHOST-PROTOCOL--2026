@@ -1,0 +1,68 @@
+{
+  "model_name": "Transformer H10 + State + Velocity",
+  "history_length": 10,
+  "input_feature_dimension": 16,
+  "velocity_feature_dimension": 16,
+  "total_input_dimension": 32,
+  "architecture_parameters": {
+    "input_dim": 32,
+    "d_model": 64,
+    "nhead": 4,
+    "num_layers": 2,
+    "dim_feedforward": 128,
+    "dropout": 0.1,
+    "max_len": 100
+  },
+  "parameter_count": 71169,
+  "training_dataset": {
+    "capture": "CTU-13 Scenario 42",
+    "split": "chronological training windows with purge_gap=2",
+    "sample_count": 210,
+    "positive_count": 142,
+    "negative_count": 68
+  },
+  "validation_dataset": {
+    "capture": "CTU-13 Scenario 42",
+    "split": "chronological validation windows with purge_gap=2",
+    "sample_count": 63,
+    "positive_count": 63,
+    "negative_count": 0
+  },
+  "evaluation_dataset": {
+    "capture": "CTU-13 Scenario 50",
+    "split": "completely held-out full timeline",
+    "sample_count": 328
+  },
+  "seed": 42,
+  "training_hyperparameters": {
+    "seed": 42,
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "early_stopping_patience": 7,
+    "optimizer": "AdamW",
+    "loss": "BCEWithLogitsLoss",
+    "pos_weight_source": "Scenario 42 training labels only",
+    "pos_weight": 0.4788732394366197,
+    "epochs_trained": 8,
+    "best_validation_loss": 0.3965523838996887
+  },
+  "scaler_description": {
+    "class": "sklearn.preprocessing.StandardScaler",
+    "fit_data": "Scenario 42 training State + Velocity sequences only",
+    "feature_count": 32,
+    "test_data_used_for_fit": false
+  },
+  "checkpoint_creation_details": {
+    "created_at_utc": "2026-09-11T10:43:44.253725+00:00",
+    "checkpoint_path": "models\\temporal_h10_state_velocity_best.pt",
+    "scaler_path": "models\\temporal_h10_state_velocity_scaler.pkl",
+    "source_configuration": "scratch/run_temporal_dynamics_ablation.py H10 State + Velocity branch",
+    "torch_version": "2.14.0+cpu",
+    "creation_runtime_seconds": 94.847,
+    "metrics_included": [
+      "best_validation_loss"
+    ]
+  }
+}

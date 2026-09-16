@@ -1,0 +1,57 @@
+# Dataset Capability Matrix
+# Grounded in official dataset documentations and schema specifications
+
+datasets:
+  CIC-IDS2018:
+    modality: "Flow / PCAP"
+    flow_level: true
+    packet_level: true
+    temporal_granularity: "High (Timestamps)"
+    host_relationships: "IP-to-IP"
+    attack_labels: "Multi-class (DDoS, PortScan, Botnet, Infiltration, BruteForce, Web)"
+    notes: "Generated using CICFlowMeter from PCAP traces."
+
+  UNSW-NB15:
+    modality: "Flow / PCAP"
+    flow_level: true
+    packet_level: true
+    temporal_granularity: "High (Timestamps)"
+    host_relationships: "IP-to-IP"
+    attack_labels: "Multi-class (Fuzzers, Analysis, Backdoors, DoS, Exploits, Generic, Reconnaissance, Shellcode, Worms)"
+    notes: "Created by IXIA PerfectStorm tool."
+
+  CTU-13:
+    modality: "NetFlow / PCAP"
+    flow_level: true
+    packet_level: true
+    temporal_granularity: "High (Timestamps)"
+    host_relationships: "IP-to-IP (Botnet Communication)"
+    attack_labels: "Multi-class (Botnet, FastFlux, C&C, Normal)"
+    notes: "Real botnet traffic captured at CTU University."
+
+  CICIoT2023:
+    modality: "IoT Flow Features"
+    flow_level: true
+    packet_level: false
+    temporal_granularity: "Medium (Timestamps)"
+    host_relationships: "Device-to-Device"
+    attack_labels: "33 Attack Classes (DDoS, DoS, Recon, Spoofing, Web, Brute Force)"
+    notes: "Targeted IoT topology security dataset."
+
+  LANL:
+    modality: "Enterprise NetFlow & Auth Logs"
+    flow_level: true
+    packet_level: false
+    temporal_granularity: "Epoch Seconds"
+    host_relationships: "User-to-Host & Host-to-Host Graph"
+    attack_labels: "Binary (Red Team Activity Events)"
+    notes: "Comprehensive internal enterprise network events from Los Alamos National Lab."
+
+  DARPA:
+    modality: "Packet / Audit Logs"
+    flow_level: false
+    packet_level: true
+    temporal_granularity: "High (Timestamps)"
+    host_relationships: "Host-to-Host"
+    attack_labels: "Multi-class Attack Phases"
+    notes: "Classic evaluation dataset."

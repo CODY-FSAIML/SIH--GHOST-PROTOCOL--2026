@@ -1,0 +1,23 @@
+# Virtual Environment
+.venv/
+venv/
+
+# Python cache & bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data & Models (ignore large artifacts if needed)
+data/raw/*
+# models/*
+
+# OS & IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,13 @@
+numpy
+pandas
+scikit-learn
+scapy==2.6.1
+matplotlib
+seaborn
+streamlit==1.63.0
+torch
+torch-geometric==2.7.0
+tqdm==4.70.1
+xxhash==4.0.1
+jupyter
+ipykernel

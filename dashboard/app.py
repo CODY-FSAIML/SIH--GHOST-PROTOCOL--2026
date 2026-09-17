@@ -203,11 +203,17 @@ def load_selected_scenario(dataset: Dict[str, Any]) -> Dict[str, Any]:
 
 @_cache_resource
 def load_uploaded_capture(file_bytes: bytes, name: str) -> Dict[str, Any]:
+    import gc
     raw = pd.read_csv(io.BytesIO(file_bytes), low_memory=False)
     adapter = _select_flow_adapter(raw.columns)
     canonical = adapter.normalize(raw)
+    del raw
+    gc.collect()
     adapter.validate(canonical)
-    return _capture_from_norm(_canonical_to_norm(canonical), name)
+    norm = _canonical_to_norm(canonical)
+    del canonical
+    gc.collect()
+    return _capture_from_norm(norm, name)
 
 
 @_cache_resource

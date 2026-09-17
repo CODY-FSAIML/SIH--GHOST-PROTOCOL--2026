@@ -310,7 +310,7 @@ class CTU13Adapter(BaseDatasetAdapter):
             errors="coerce",
         )
         # POSIX float (seconds since epoch), timezone-naive
-        out["timestamp"] = ts_parsed.astype(np.int64) / 1e9
+        out["timestamp"] = ts_parsed.astype("datetime64[ns]").astype(np.int64) / 1e9
 
         # ---- Simple renames --------------------------------------------
         out["duration"] = pd.to_numeric(df["Dur"], errors="coerce")

@@ -201,7 +201,7 @@ def load_selected_scenario(dataset: Dict[str, Any]) -> Dict[str, Any]:
     return load_capture_file(str(dataset["path"]))
 
 
-@_cache_data
+@_cache_resource
 def load_uploaded_capture(file_bytes: bytes, name: str) -> Dict[str, Any]:
     raw = pd.read_csv(io.BytesIO(file_bytes), low_memory=False)
     adapter = _select_flow_adapter(raw.columns)
@@ -210,7 +210,7 @@ def load_uploaded_capture(file_bytes: bytes, name: str) -> Dict[str, Any]:
     return _capture_from_norm(_canonical_to_norm(canonical), name)
 
 
-@_cache_data
+@_cache_resource
 def load_uploaded_pcap(file_bytes: bytes, name: str) -> Dict[str, Any]:
     adapter = PCAPAdapter()
     handle = tempfile.NamedTemporaryFile(suffix=".pcap", delete=False)

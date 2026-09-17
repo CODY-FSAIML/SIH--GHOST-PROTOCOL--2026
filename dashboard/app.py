@@ -345,18 +345,20 @@ def graph_dot(graph: Dict[str, Any], max_nodes: int = 40) -> Tuple[str, int, int
     max_activity = float(activity[ranked].max()) if ranked and float(activity[ranked].max()) > 0 else 1.0
     lines = [
         "digraph G {",
-        '  graph [rankdir=LR, bgcolor="transparent", nodesep=0.28, ranksep=0.42];',
-        '  node [shape=box, fixedsize=true, style="rounded,filled", fillcolor="#17324d", color="#5ce1e6", penwidth=1.0];',
+        '  graph [layout="neato", overlap="prism", bgcolor="transparent"];',
+        '  node [shape=box, style="rounded,filled", fillcolor="#17324d", color="#5ce1e6", fontcolor="white", fontsize=9, fontname="Helvetica", penwidth=1.0];',
         '  edge [color="#54788d", arrowsize=0.55];',
     ]
     for index in ranked:
         label = node_ids[index].replace('"', "'")
         normalized_activity = min(1.0, float(activity[index]) / max_activity)
-        # Point nodes remain compact even for a high-volume host. Activity is
-        # still encoded, but bounded to a subtle visual range.
-        size = 0.08 + 0.10 * normalized_activity
+        # Scale the size to be noticeably larger, but allow Graphviz to size the width
+        # properly around the IP address since we removed fixedsize=true.
+        # We will use height and margin to visually scale by activity.
+        height = 0.3 + 0.3 * normalized_activity
+        margin = 0.1 + 0.1 * normalized_activity
         tooltip = f"Entity: {label} | activity: {float(activity[index]):.0f}"
-        lines.append(f'  "{label}" [label="", width={size:.2f}, height={size:.2f}, tooltip="{tooltip}"];')
+        lines.append(f'  "{label}" [label="{label}", height={height:.2f}, margin="{margin:.2f}", tooltip="{tooltip}"];')
     for edge_index, (source, target) in enumerate(graph["edge_meta"]):
         if source in selected and target in selected:
             edge_feature = graph.get("edge_features", np.empty((0, 6)))[edge_index]

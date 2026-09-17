@@ -105,13 +105,13 @@ def _select_flow_adapter(columns: Iterable[str]):
 def _parse_ctu13_timestamps(values: pd.Series) -> pd.Series:
     """Return CTU-13 timestamps as POSIX seconds using an explicit ns epoch."""
     parsed = pd.to_datetime(values, format="%Y/%m/%d %H:%M:%S.%f", errors="coerce")
-    return parsed.astype("datetime64[ns]").astype(np.int64) / 1e9
+    return (parsed - pd.Timestamp("1970-01-01")) / pd.Timedelta(seconds=1)
 
 
 def _canonical_to_norm(canonical: pd.DataFrame) -> pd.DataFrame:
     metadata = canonical.get("metadata")
     if metadata is None:
-        timestamp = pd.to_datetime(canonical["timestamp_str"], errors="coerce").astype("datetime64[ns]").astype(np.int64) / 1e9
+        timestamp = (pd.to_datetime(canonical["timestamp_str"], errors="coerce") - pd.Timestamp("1970-01-01")) / pd.Timedelta(seconds=1)
         sent_bytes = pd.to_numeric(canonical["bytes_sent"], errors="coerce").fillna(0.0)
         received_bytes = pd.to_numeric(canonical["bytes_received"], errors="coerce").fillna(0.0)
         sent_packets = pd.to_numeric(canonical["packets_sent"], errors="coerce").fillna(0.0)

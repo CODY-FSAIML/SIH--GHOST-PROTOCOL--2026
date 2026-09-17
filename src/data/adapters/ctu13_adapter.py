@@ -24,8 +24,8 @@ from typing import Dict, Optional, Tuple
 import pandas as pd
 import numpy as np
 
-from ..base_adapter import BaseDatasetAdapter
-from ..schema import CANONICAL_COLUMNS
+from src.data.base_adapter import BaseDatasetAdapter
+from src.data.schema import CANONICAL_COLUMNS
 
 
 # ---------------------------------------------------------------------------
@@ -310,7 +310,7 @@ class CTU13Adapter(BaseDatasetAdapter):
             errors="coerce",
         )
         # POSIX float (seconds since epoch), timezone-naive
-        out["timestamp"] = ts_parsed.astype("datetime64[ns]").astype(np.int64) / 1e9
+        out["timestamp"] = (ts_parsed - pd.Timestamp("1970-01-01")) / pd.Timedelta(seconds=1)
 
         # ---- Simple renames --------------------------------------------
         out["duration"] = pd.to_numeric(df["Dur"], errors="coerce")
